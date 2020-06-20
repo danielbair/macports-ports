@@ -8,6 +8,7 @@ PortGroup legacysupport 1.0
 
 name                    qemu
 version                 5.0.0
+revision                1
 categories              emulators
 license                 GPL-2+
 platforms               darwin
@@ -192,7 +193,7 @@ variant curl description {Support network block devices using CURL} {
     depends_lib-append      port:curl
 }
 
-variant vnc description {Support VNC server} {
+variant vnc description {Support VNC server graphics} {
     configure.args-replace  --disable-vnc --enable-vnc
     configure.args-append   --enable-gnutls \
                             --enable-vnc-sasl \
@@ -202,6 +203,14 @@ variant vnc description {Support VNC server} {
                             port:cyrus-sasl2 \
                             path:lib/libjpeg.dylib:jpeg \
                             port:libpng
+}
+
+variant spice description {Support SPICE server graphics} requires usb {
+    configure.args-replace  --disable-spice --enable-spice
+    configure.args-replace  --disable-usb-redir --enable-usb-redir
+
+    depends_lib-append      port:spice-server \
+                            port:usbredir
 }
 
 variant vde description {Support VDE networking} {
