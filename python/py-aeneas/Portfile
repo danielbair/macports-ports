@@ -1,0 +1,67 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           select 1.0
+
+name                py-aeneas
+version             1.7.3.0
+categories-append   devel, audio
+platforms           darwin
+license             GPL-3+
+
+python.versions     27 35 36 37 38
+
+maintainers         nomaintainer
+
+description         Python/C library and set of tools to synchronize audio and text
+
+long_description    aeneas is a Python/C library and a set of tools to automagically synchronize audio and text (aka forced alignment).
+
+homepage            http://www.readbeyond.it/aeneas/
+master_sites        pypi:[string index ${python.rootname} 0]/${python.rootname}
+
+distname            ${python.rootname}-${version}
+
+checksums           rmd160  bccdd527c19345578c58996fb1aaaebc49acd5f5 \
+                    sha256  b492d8ba36f12cce69c29c35e7075857a9d036c4743cc8f4689922be980826da \
+                    size    5477562
+
+if {${name} ne ${subport}} {
+    pre-patch {
+        copy -force ${prefix}/include/espeak-ng/speak_lib.h ${build.dir}/aeneas/cew/speak_lib.h
+    }
+
+    patchfiles-append   patch-ttswrapper-mac.diff
+    patchfiles-append   patch-espeak-ng-mac.diff
+    patch.args          -p1
+
+    depends_build-append \
+                        port:py${python.version}-setuptools
+
+    depends_lib-append  port:ffmpeg \
+                        port:espeak-ng \
+                        port:py${python.version}-numpy \
+                        port:py${python.version}-lxml \
+                        port:py${python.version}-beautifulsoup4
+
+    if {${python.version} == 38} {
+        patchfiles-append   patch-py38-utf8-mac.diff
+        patch.args          -p1
+    }
+
+    depends_run-append  port:aeneas_select
+    select.group        aeneas
+    select.file         ${filespath}/py${python.version}-aeneas
+
+    notes "
+        To make the Python ${python.branch} version of aeneas the one that is run when\
+        you execute the commands without a version suffix, e.g. 'aeneas_execute_job', run:
+
+        port select --set ${select.group} [file tail ${select.file}]
+    "
+
+    livecheck.type      none
+} else {
+    livecheck.type      pypi
+}

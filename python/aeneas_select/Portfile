@@ -1,0 +1,37 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           select 1.0
+
+name                aeneas_select
+version             0.1
+revision            0
+platforms           darwin
+supported_archs     noarch
+categories          python
+license             BSD
+
+maintainers         nomaintainer
+
+description         common files for selecting default aeneas version
+long_description \
+                    This port installs files that allow 'port select' to be used to \
+                    create links to the preferred default version of aeneas
+
+homepage            https://www.macports.org/
+
+distfiles
+use_configure       no
+configure.cxx_stdlib
+build {}
+destroot {}
+#destroot {
+#    select::install aeneas ${filespath}/base
+#    select::install aeneas ${filespath}/none
+#}
+
+
+select.entries      {aeneas base} \
+                    {aeneas none}
+
+livecheck.type      none

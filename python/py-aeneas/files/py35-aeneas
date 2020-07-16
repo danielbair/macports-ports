@@ -1,0 +1,8 @@
+${frameworks_dir}/Python.framework/Versions/3.5/bin/aeneas_check_setup
+${frameworks_dir}/Python.framework/Versions/3.5/bin/aeneas_convert_syncmap
+${frameworks_dir}/Python.framework/Versions/3.5/bin/aeneas_download
+${frameworks_dir}/Python.framework/Versions/3.5/bin/aeneas_execute_job
+${frameworks_dir}/Python.framework/Versions/3.5/bin/aeneas_execute_task
+${frameworks_dir}/Python.framework/Versions/3.5/bin/aeneas_plot_waveform
+${frameworks_dir}/Python.framework/Versions/3.5/bin/aeneas_synthesize_text
+${frameworks_dir}/Python.framework/Versions/3.5/bin/aeneas_validate

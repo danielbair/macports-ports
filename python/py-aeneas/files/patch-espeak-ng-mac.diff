@@ -1,0 +1,33 @@
+--- a/aeneas/cew/Makefile	2020-07-13 16:15:52.000000000 +0700
++++ b/aeneas/cew/Makefile	2020-07-13 16:16:22.000000000 +0700
+@@ -25,7 +25,7 @@
+ SETUP_PY=$(PREFIX)_setup.py
+ 
+ SRCS=$(DRIVER).c $(FUNC).c ../cint/cint.c
+-CLIBS=-lespeak
++CLIBS=-lespeak-ng
+ 
+ CC=gcc
+ CFLAGS=-Wall -pedantic -std=c99
+--- a/aeneas/cew/cew_setup.py	2020-07-13 16:51:17.000000000 +0700
++++ b/aeneas/cew/cew_setup.py	2020-07-13 16:51:43.000000000 +0700
+@@ -41,7 +41,7 @@
+         "cew_func.c"
+     ],
+     libraries=[
+-        "espeak"
++        "espeak-ng"
+     ]
+ )
+ 
+--- a/setup.py	2020-07-13 22:10:40.000000000 +0700
++++ b/setup.py	2020-07-13 22:09:31.000000000 +0700
+@@ -234,7 +234,7 @@
+         "aeneas/cew/cew_func.c"
+     ],
+     libraries=[
+-        "espeak"
++        "espeak-ng"
+     ]
+ )
+ EXTENSION_CFW = Extension(
