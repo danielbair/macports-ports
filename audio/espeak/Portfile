@@ -41,6 +41,7 @@ if {${os.platform} eq "darwin" && ${os.major} >= 10} {
 
 compiler.cxx_standard 1998
 configure.cxxflags-append -std=c++98
+configure.cxx_stdlib libstdc++
 
 makefile.override   PREFIX
 
